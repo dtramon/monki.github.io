@@ -3,87 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JetSMART | Transformación Digital</title>
+    <title>Framework de Transformación Digital - JetSMART</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Lato', 'sans-serif'],
-                    },
-                    colors: {
-                        jsBlueDeep: '#1C355E',   // Azul Marino Oficial JetSMART
-                        jsBlueSky: '#00A9E0',    // Azul Turquesa Oficial JetSMART
-                        jsRed: '#C8102E',        // Rojo de Énfasis Oficial JetSMART
-                        jsGrayBg: '#F4F6F8',     // Fondo Gris Claro
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        body {
+            font-family: 'Lato', sans-serif;
+            scroll-behavior: smooth;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #F4F6F8;
+        /* Custom scrollbar matching JetSMART brand colors */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1C355E;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
             background: #00A9E0;
-            border-radius: 3px;
-        }
-        .tab-transition {
-            transition: all 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="bg-jsGrayBg font-sans text-jsBlueDeep min-h-screen flex flex-col relative">
+<body class="bg-slate-50 text-[#1C355E] min-h-screen flex flex-col justify-between">
 
-    <header class="bg-jsBlueDeep text-white shadow-md border-b-4 border-jsBlueSky">
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] space-y-2 pointer-events-none"></div>
+
+    <header class="bg-[#1C355E] text-white sticky top-0 z-50 shadow-lg border-b-4 border-[#00A9E0]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex items-center space-x-3 flex-shrink-0">
-                    <div class="bg-white p-2 rounded-lg flex items-center justify-center shadow-md">
-                        <svg class="h-8 w-auto text-jsBlueDeep" viewBox="0 0 120 40" fill="currentColor">
-                            <text x="5" y="28" font-family="'Lato', sans-serif" font-weight="900" font-size="24" fill="#1C355E">Jet</text>
-                            <text x="42" y="28" font-family="'Lato', sans-serif" font-weight="900" font-size="24" fill="#00A9E0">SMART</text>
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white p-2 rounded-lg shadow-md flex items-center justify-center">
+                        <svg class="w-8 h-8 text-[#1C355E]" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5l-3.5-3.5 1.41-1.41L12 13.67l4.09-4.09 1.41 1.41L13 17.5zM12 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
                         </svg>
                     </div>
-                    <div class="hidden xl:block">
-                        <span class="text-xs tracking-wider block text-jsBlueSky font-bold uppercase">Área Corporativa</span>
-                        <h1 class="text-lg font-black tracking-tight -mt-1 text-white">TRANSFORMACIÓN DIGITAL</h1>
+                    <div>
+                        <div class="flex items-center space-x-1.5">
+                            <span class="font-black text-xl tracking-tight">Jet<span class="text-[#00A9E0]">SMART</span></span>
+                        </div>
+                        <p class="text-[10px] text-slate-300 tracking-wider uppercase font-bold">Transformación Digital</p>
                     </div>
                 </div>
 
-                <nav class="flex space-x-1 overflow-x-auto py-2 custom-scrollbar mx-4">
-                    <button onclick="switchTab('pilares')" id="btn-tab-pilares" class="tab-transition px-3 py-2 rounded-md text-xs font-bold bg-jsBlueSky text-white whitespace-nowrap">
-                        <i class="fa-solid fa-chart-line mr-1.5"></i>0. PILARES TX
+                <nav class="hidden lg:flex space-x-1 bg-[#152949] p-1 rounded-xl">
+                    <button onclick="switchTab('pilares')" id="btn-pilares" class="tab-btn px-4 py-2 text-xs font-black rounded-lg bg-[#00A9E0] text-white transition-all duration-200">
+                        0. PILARES TX
                     </button>
-                    <button onclick="switchTab('framework')" id="btn-tab-framework" class="tab-transition px-3 py-2 rounded-md text-xs font-bold text-gray-300 hover:text-white hover:bg-jsBlueDeep/50 whitespace-nowrap">
-                        <i class="fa-solid fa-route mr-1.5"></i>1. FRAMEWORK TD
+                    <button onclick="switchTab('infografia')" id="btn-infografia" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
+                        1. FRAMEWORK TD
                     </button>
-                    <button onclick="switchTab('matriz')" id="btn-tab-matriz" class="tab-transition px-3 py-2 rounded-md text-xs font-bold text-gray-300 hover:text-white hover:bg-jsBlueDeep/50 whitespace-nowrap">
-                        <i class="fa-solid fa-table-cells mr-1.5"></i>2. MATRIZ PRIORIDAD
+                    <button onclick="switchTab('flujo')" id="btn-flujo" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
+                        2. DISCOVERY & DATA
                     </button>
-                    <button onclick="switchTab('intake')" id="btn-tab-intake" class="tab-transition px-3 py-2 rounded-md text-xs font-bold text-gray-300 hover:text-white hover:bg-jsBlueDeep/50 relative whitespace-nowrap">
-                        <i class="fa-solid fa-inbox mr-1.5"></i>3. BUZÓN INTAKE
-                        <span id="intake-badge" class="hidden absolute -top-1 -right-1 bg-jsRed text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-bounce">0</span>
+                    <button onclick="switchTab('priorizador')" id="btn-priorizador" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
+                        3. MATRIZ DE PRIORIDAD
                     </button>
-                    <button onclick="switchTab('discovery')" id="btn-tab-discovery" class="tab-transition px-3 py-2 rounded-md text-xs font-bold text-gray-300 hover:text-white hover:bg-jsBlueDeep/50 whitespace-nowrap">
-                        <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i>4. DISCOVERY & PRD
+                    <button onclick="switchTab('raci')" id="btn-raci" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
+                        4. GOBERNANZA RACI
                     </button>
-                    <button onclick="switchTab('raci')" id="btn-tab-raci" class="tab-transition px-3 py-2 rounded-md text-xs font-bold text-gray-300 hover:text-white hover:bg-jsBlueDeep/50 whitespace-nowrap">
-                        <i class="fa-solid fa-users-gear mr-1.5"></i>5. GOBERNANZA RACI
+                    <button onclick="switchTab('prd')" id="btn-prd" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-[#00A9E0] hover:text-white transition-all duration-200">
+                        ✨ 5. GENERADOR PRD
                     </button>
                 </nav>
 
                 <div class="flex items-center space-x-2 flex-shrink-0">
-                    <button id="btn-sync" onclick="openDbConfigModal()" class="flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider border transition-all duration-300 bg-jsRed border-jsRed text-white hover:bg-jsRed/90 shadow-md">
+                    <button id="btn-sync" onclick="openDbConfigModal()" class="flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider border transition-all duration-300 bg-[#C8102E] border-[#C8102E] text-white hover:bg-[#b00e26] shadow-md">
                         <span class="w-2 h-2 rounded-full bg-white animate-ping" id="sync-indicator"></span>
                         <span id="sync-text">CONECTAR BASE DATOS</span>
                         <i class="fa-solid fa-database ml-1 text-white"></i>
@@ -91,409 +79,423 @@
                 </div>
             </div>
         </div>
+
+        <div class="lg:hidden flex justify-around bg-[#152949] py-2 overflow-x-auto border-t border-[#1C355E]">
+            <button onclick="switchTab('pilares')" class="tab-btn-mob text-[10px] font-black text-[#00A9E0] px-3 shrink-0 uppercase">0. Pilares</button>
+            <button onclick="switchTab('infografia')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">1. Framework</button>
+            <button onclick="switchTab('flujo')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">2. Discovery</button>
+            <button onclick="switchTab('priorizador')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">3. Matriz</button>
+            <button onclick="switchTab('raci')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">4. RACI</button>
+            <button onclick="switchTab('prd')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">5. PRD</button>
+        </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+        
+        <section id="tab-pilares" class="space-y-8">
+            <div class="mb-4">
+                <span class="text-xs font-black text-[#00A9E0] uppercase tracking-widest block mb-1">EL PARA QUÉ</span>
+                <h2 class="text-3xl md:text-4xl font-black text-[#1C355E] tracking-tight">Los 4 ejes con los que nos medimos</h2>
+            </div>
 
-        <div id="db-alert-banner" class="mb-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg shadow-sm flex items-center justify-between">
-            <div class="flex items-start space-x-3">
-                <i class="fa-solid fa-circle-exclamation text-amber-500 text-lg mt-0.5 animate-bounce"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-8 rounded-3xl border border-slate-200/60 shadow-md flex items-start space-x-6 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-[#00A9E0]"></div>
+                    <div class="p-3 bg-sky-50 text-[#00A9E0] rounded-2xl shrink-0 mt-1">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-black text-[#00A9E0] tracking-widest uppercase block">INGRESOS</span>
+                        <h3 class="text-2xl font-black text-[#1C355E]">Ganar más</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Iniciativas que abren nuevas fuentes de ingreso, optimizan tarifas, mejoran conversión o reducen fugas comerciales.</p>
+                        <p class="text-xs text-slate-400 italic font-medium pt-2">Pricing dinámico · Optimización de revenue · Ancillaries</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200/60 shadow-md flex items-start space-x-6 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-[#00A9E0]"></div>
+                    <div class="p-3 bg-sky-50 text-[#00A9E0] rounded-2xl shrink-0 mt-1">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-black text-[#00A9E0] tracking-widest uppercase block">COSTOS</span>
+                        <h3 class="text-2xl font-black text-[#1C355E]">Gastar menos</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Iniciativas que reducen gasto operacional, eliminan retrabajo, automatizan procesos y bajan el costo unitario.</p>
+                        <p class="text-xs text-slate-400 italic font-medium pt-2">Procesos automatizados · Negociación con data · Fuel y mantenimiento</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200/60 shadow-md flex items-start space-x-6 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-[#00A9E0]"></div>
+                    <div class="p-3 bg-sky-50 text-[#00A9E0] rounded-2xl shrink-0 mt-1">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-black text-[#00A9E0] tracking-widest uppercase block">PRODUCTIVIDAD</span>
+                        <h3 class="text-2xl font-black text-[#1C355E]">Hacer más con lo mismo</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Iniciativas que liberan tiempo del equipo, escalan capacidad sin sumar headcount y mejoran throughput.</p>
+                        <p class="text-xs text-slate-400 italic font-medium pt-2">Asistentes para áreas · Auto-reporting · Documentación viva</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200/60 shadow-md flex items-start space-x-6 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-[#00A9E0]"></div>
+                    <div class="p-3 bg-sky-50 text-[#00A9E0] rounded-2xl shrink-0 mt-1">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.5-1.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM12 13.5c-4.478 0-8.125 3.32-8.5 7.5h17c-.375-4.18-4.022-7.5-8.5-7.5z" />
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-black text-[#00A9E0] tracking-widest uppercase block">EXPERIENCIA</span>
+                        <h3 class="text-2xl font-black text-[#1C355E]">Mejor pasajero</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Iniciativas que mejoran NPS, reducen fricción en el viaje, aceleran la atención y aumentan la recompra.</p>
+                        <p class="text-xs text-slate-400 italic font-medium pt-2">Atención asistida · Resolución first-contact · Personalización</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-[#1C355E] to-[#152949] p-8 rounded-3xl text-white flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
-                    <h4 class="font-bold text-amber-800 text-sm">¿Estás usando esto en Notion con tu equipo?</h4>
-                    <p class="text-xs text-amber-700 mt-0.5">Actualmente estás en modo de almacenamiento local. Conecta Cloud Firestore para habilitar la base de datos colaborativa.</p>
+                    <h4 class="text-xl font-black">¿Cómo convertimos estos objetivos en proyectos tangibles?</h4>
+                    <p class="text-xs text-slate-300">Sigue el framework unificado de la gerencia para priorizar, diseñar y entregar con total seguridad técnica.</p>
                 </div>
-            </div>
-        </div>
-
-        <section id="pane-pilares" class="tab-pane block">
-            <div class="text-center max-w-3xl mx-auto mb-10">
-                <span class="text-jsBlueSky font-extrabold text-sm tracking-widest uppercase block mb-1">El Para Qué</span>
-                <h2 class="text-3xl md:text-4xl font-black text-jsBlueDeep tracking-tight">Los 4 ejes con los que nos medimos</h2>
-                <p class="text-gray-600 mt-2 text-sm md:text-base">Nuestra estrategia de transformación digital no persigue tecnologías por moda, sino impactos operacionales claros que optimizan la aerolínea.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                <div class="bg-white rounded-xl shadow-md border-l-4 border-jsBlueSky p-6 relative overflow-hidden group">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-jsBlueSky/10 p-3 rounded-lg text-jsBlueSky text-xl"><i class="fa-solid fa-arrow-trend-up"></i></div>
-                        <div>
-                            <span class="text-xs font-bold text-jsBlueSky tracking-wider uppercase block">INGRESOS</span>
-                            <h3 class="text-xl font-extrabold text-jsBlueDeep">Ganar más</h3>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Iniciativas que abren nuevas fuentes de ingreso, optimizan tarifas, mejoran la conversión o reducen las fugas comerciales del negocio.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-md border-l-4 border-jsBlueSky p-6 relative overflow-hidden group">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-jsBlueSky/10 p-3 rounded-lg text-jsBlueSky text-xl"><i class="fa-solid fa-arrow-trend-down"></i></div>
-                        <div>
-                            <span class="text-xs font-bold text-jsBlueSky tracking-wider uppercase block">COSTOS</span>
-                            <h3 class="text-xl font-extrabold text-jsBlueDeep">Gastar menos</h3>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Iniciativas que reducen el gasto operacional, eliminan retrabajo, automatizan procesos manuales y bajan el costo de producción.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-md border-l-4 border-jsBlueSky p-6 relative overflow-hidden group">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-jsBlueSky/10 p-3 rounded-lg text-jsBlueSky text-xl"><i class="fa-solid fa-bolt"></i></div>
-                        <div>
-                            <span class="text-xs font-bold text-jsBlueSky tracking-wider uppercase block">PRODUCTIVIDAD</span>
-                            <h3 class="text-xl font-extrabold text-jsBlueDeep">Hacer más con lo mismo</h3>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Iniciativas que liberan tiempo útil del equipo de trabajo, escalan capacidades del negocio sin sumar headcount y aceleran la entrega.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-md border-l-4 border-jsBlueSky p-6 relative overflow-hidden group">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-jsBlueSky/10 p-3 rounded-lg text-jsBlueSky text-xl"><i class="fa-solid fa-user-check"></i></div>
-                        <div>
-                            <span class="text-xs font-bold text-jsBlueSky tracking-wider uppercase block">EXPERIENCIA</span>
-                            <h3 class="text-xl font-extrabold text-jsBlueDeep">Mejor pasajero</h3>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Iniciativas que mejoran el NPS de cara al cliente final, reducen la fricción en el viaje, aceleran la atención y aumentan la recompra.</p>
-                </div>
-            </div>
-            
-            <div class="bg-slate-900 text-white rounded-xl p-6 mt-10 max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                    <h4 class="font-black text-sm">¿Cómo convertimos estos objetivos en proyectos tangibles?</h4>
-                    <p class="text-xs text-gray-400 mt-1">Sigue el framework unificado de la gerencia para priorizar, diseñar y entregar con total seguridad técnica.</p>
-                </div>
-                <button onclick="switchTab('framework')" class="bg-jsBlueSky text-white font-black text-xs px-5 py-3 rounded-lg uppercase whitespace-nowrap">Comenzar con Fase 1: Planificación</button>
+                <button onclick="switchTab('infografia')" class="px-6 py-3 bg-[#00A9E0] hover:bg-[#008cb8] text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all shrink-0">
+                    Comenzar con la Fase 1: Planificación
+                </button>
             </div>
         </section>
 
-        <section id="pane-framework" class="tab-pane hidden">
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-                <button onclick="selectStep(1)" id="step-btn-1" class="bg-white border-2 border-jsBlueSky rounded-xl p-4 text-left shadow-sm h-28 flex flex-col justify-between">
-                    <span class="text-[10px] font-black text-jsBlueSky uppercase">Fase 01</span>
-                    <span class="text-sm font-black text-jsBlueDeep">Planificación</span>
-                    <span class="text-[11px] text-gray-400">Intake & 360°</span>
+        <section id="tab-infografia" class="hidden space-y-8">
+            <div class="bg-gradient-to-r from-[#1C355E] via-[#24467c] to-[#1C355E] rounded-3xl p-8 md:p-12 shadow-xl text-white relative overflow-hidden border-l-8 border-[#00A9E0]">
+                <div class="relative z-10 max-w-4xl space-y-4">
+                    <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-black bg-[#00A9E0] text-white uppercase tracking-widest">Metodología de Habilitación Digital</span>
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Transforma <span class="text-[#00A9E0]">SMART</span>: Innovación con Sustento en Datos</h2>
+                    <p class="text-slate-200 text-sm md:text-base leading-relaxed max-w-2xl font-medium">Conectamos los dolores operativos de las gerencias de **People y Legal** con la robustez técnica de nuestro **Equipo de BI & Data**. Rediseñamos procesos e interfaces solo sobre bases de datos sólidas y validadas.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+                <button onclick="selectPhase(1)" id="phase-card-1" class="phase-card border-2 border-[#00A9E0] bg-white p-4 rounded-2xl text-left shadow-md relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-[#00A9E0]"></div>
+                    <span class="text-[10px] font-black text-[#00A9E0] uppercase block mb-1">Fase 01</span>
+                    <h3 class="font-black text-[#1C355E] text-sm md:text-base mb-1">Planificación</h3>
+                    <p class="text-xs text-slate-500">Intake & 360°</p>
                 </button>
-                <button onclick="selectStep(2)" id="step-btn-2" class="bg-white border-2 border-transparent rounded-xl p-4 text-left shadow-sm h-28 flex flex-col justify-between hover:border-gray-200">
-                    <span class="text-[10px] font-black text-gray-400 uppercase">Fase 02</span>
-                    <span class="text-sm font-black text-jsBlueDeep">Discovery & BI</span>
-                    <span class="text-[11px] text-gray-400">Modelos de Datos</span>
+                <button onclick="selectPhase(2)" id="phase-card-2" class="phase-card border border-slate-200 bg-white p-4 rounded-2xl text-left hover:border-slate-300 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-slate-300" id="indicator-2"></div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase block mb-1">Fase 02</span>
+                    <h3 class="font-black text-[#1C355E] text-sm md:text-base mb-1">Discovery & BI</h3>
+                    <p class="text-xs text-slate-500">Mapeo de datos & BI</p>
                 </button>
-                <button onclick="selectStep(3)" id="step-btn-3" class="bg-white border-2 border-transparent rounded-xl p-4 text-left shadow-sm h-28 flex flex-col justify-between hover:border-gray-200">
-                    <span class="text-[10px] font-black text-gray-400 uppercase">Fase 03</span>
-                    <span class="text-sm font-black text-jsBlueDeep">Aprobación</span>
-                    <span class="text-[11px] text-gray-400">Filtro Directores</span>
+                <button onclick="selectPhase(3)" id="phase-card-3" class="phase-card border border-slate-200 bg-white p-4 rounded-2xl text-left hover:border-slate-300 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-slate-300" id="indicator-3"></div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase block mb-1">Fase 03</span>
+                    <h3 class="font-black text-[#1C355E] text-sm md:text-base mb-1">Aprobación</h3>
+                    <p class="text-xs text-slate-500">Comité Directores</p>
                 </button>
-                <button onclick="selectStep(4)" id="step-btn-4" class="bg-white border-2 border-transparent rounded-xl p-4 text-left shadow-sm h-28 flex flex-col justify-between hover:border-gray-200">
-                    <span class="text-[10px] font-black text-gray-400 uppercase">Fase 04</span>
-                    <span class="text-sm font-black text-jsBlueDeep">Ejecución Ágil</span>
-                    <span class="text-[11px] text-gray-400">Sprints & MVPs</span>
+                <button onclick="selectPhase(4)" id="phase-card-4" class="phase-card border border-slate-200 bg-white p-4 rounded-2xl text-left hover:border-slate-300 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-slate-300" id="indicator-4"></div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase block mb-1">Fase 04</span>
+                    <h3 class="font-black text-[#1C355E] text-sm md:text-base mb-1">Ejecución Ágil</h3>
+                    <p class="text-xs text-slate-500">Construcción & MVP</p>
                 </button>
-                <button onclick="selectStep(5)" id="step-btn-5" class="bg-white border-2 border-transparent rounded-xl p-4 text-left shadow-sm h-28 flex flex-col justify-between hover:border-gray-200">
-                    <span class="text-[10px] font-black text-gray-400 uppercase">Fase 05</span>
-                    <span class="text-sm font-black text-jsBlueDeep">Adopción & ROI</span>
-                    <span class="text-[11px] text-gray-400">Medición Impacto</span>
+                <button onclick="selectPhase(5)" id="phase-card-5" class="phase-card border border-slate-200 bg-white p-4 rounded-2xl text-left hover:border-slate-300 relative overflow-hidden col-span-2 md:col-span-1">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-slate-300" id="indicator-5"></div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase block mb-1">Fase 05</span>
+                    <h3 class="font-black text-[#1C355E] text-sm md:text-base mb-1">Adopción & ROI</h3>
+                    <p class="text-xs text-slate-500">Gobernanza & Retorno</p>
                 </button>
             </div>
-            <div class="bg-white rounded-2xl shadow-md p-6 md:p-8" id="step-card-content"></div>
+
+            <div id="phase-details-canvas" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm"></div>
         </section>
 
-        <section id="pane-matriz" class="tab-pane hidden">
+        <section id="tab-flujo" class="hidden space-y-8">
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-xs font-black text-[#00A9E0] uppercase tracking-widest">Co-diseño Sólido</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-[#1C355E] mt-1">Habilitación de BI y Flujo de Datos</h2>
+                    <p class="text-slate-500 text-xs md:text-sm mt-1">Garantizamos que el modelado y estructuración de tablas preceda a cualquier desarrollo de interfaz o automatización final.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between h-56 hover:shadow-md transition-all">
+                        <div>
+                            <span class="text-[10px] font-black text-[#00A9E0] uppercase">Paso 2.1</span>
+                            <h4 class="font-black text-sm text-[#1C355E] mt-1">Kick-off del Discovery</h4>
+                            <p class="text-xs text-slate-500 mt-2">Reunión ágil para delimitar alcance del problema de negocio e identificar patrocinadores.</p>
+                        </div>
+                        <span class="text-[10px] font-black text-[#1C355E] bg-slate-200 px-2 py-1 rounded w-max">Lidera: PM de TD</span>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between h-56 hover:shadow-md transition-all">
+                        <div>
+                            <span class="text-[10px] font-black text-[#1C355E] uppercase">Paso 2.2</span>
+                            <h4 class="font-black text-sm text-[#1C355E] mt-1">Requerimiento Funcional</h4>
+                            <p class="text-xs text-slate-500 mt-2">Co-creación del flujo AS-IS y TO-BE junto a reglas de negocio rígidas.</p>
+                        </div>
+                        <span class="text-[10px] font-black text-white bg-[#1C355E] px-2 py-1 rounded w-max">Co-creación: Negocio + PM</span>
+                    </div>
+                    <div class="bg-sky-50/50 border border-sky-100 rounded-2xl p-5 flex flex-col justify-between h-56 hover:shadow-md transition-all">
+                        <div>
+                            <span class="text-[10px] font-black text-[#00A9E0] uppercase">Paso 2.3</span>
+                            <h4 class="font-black text-sm text-[#1C355E] mt-1">Habilitación de Datos</h4>
+                            <p class="text-xs text-slate-500 mt-2">El **Equipo de BI & Data** analiza orígenes en el Data Lake, mapea dimensiones/hechos y certifica que la data esté lista.</p>
+                        </div>
+                        <span class="text-[10px] font-black text-white bg-[#00A9E0] px-2 py-1 rounded w-max">Lidera: BI & Data</span>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between h-56 hover:shadow-md transition-all">
+                        <div>
+                            <span class="text-[10px] font-black text-[#1C355E] uppercase">Paso 2.4</span>
+                            <h4 class="font-black text-sm text-[#1C355E] mt-1">Documento de Discovery</h4>
+                            <p class="text-xs text-slate-500 mt-2">Consolidación de requerimientos, priorización MoSCoW y creación de tickets en el backlog de Jira.</p>
+                        </div>
+                        <span class="text-[10px] font-black text-white bg-[#1C355E] px-2 py-1 rounded w-max">Jira & Confluence</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-priorizador" class="hidden space-y-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-4 bg-white rounded-2xl p-6 shadow-md border border-gray-100 h-fit">
-                    <h3 class="text-lg font-black text-jsBlueDeep mb-4 flex items-center">
-                        <i class="fa-solid fa-square-plus text-jsBlueSky mr-2 text-xl"></i>Nueva Iniciativa
-                    </h3>
-                    <form id="project-form" class="space-y-4" onsubmit="saveProject(event)">
-                        <input type="hidden" id="edit-project-id" value="">
+                <div class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-6">
+                    <div>
+                        <span class="text-xs font-black text-[#00A9E0] uppercase block">Evaluador de Portafolio</span>
+                        <h2 class="text-xl font-black text-[#1C355E] mt-0.5">Matriz de Priorización SMART</h2>
+                        <p class="text-xs text-slate-500 mt-1">Utiliza la fórmula oficial cruzando valor y factibilidad analítica técnica.</p>
+                    </div>
+
+                    <form id="project-form" class="space-y-4" onsubmit="addProject(event)">
                         <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">Nombre de la Iniciativa</label>
-                            <input type="text" id="project-name" required placeholder="Ej: Dashboard de KPI de Rotación" class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:border-jsBlueSky">
+                            <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1">Nombre de la Iniciativa</label>
+                            <input id="proj-title" type="text" placeholder="Ej: Control Automatizado de Horas Extras" required class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 font-semibold">
                         </div>
-                        <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">Gerencia Solicitante</label>
-                            <select id="project-area" class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:border-jsBlueSky">
-                                <option value="People">People</option>
-                                <option value="Legal">Legal</option>
-                                <option value="Operaciones">Operaciones</option>
-                            </select>
-                        </div>
-                        <div class="space-y-3 pt-3 border-t border-gray-100">
+
+                        <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="flex justify-between text-xs font-bold mb-1">
-                                    <span class="text-gray-600">Impacto en el Negocio (35%)</span>
-                                    <span class="text-jsBlueSky font-extrabold" id="lbl-impact">3</span>
-                                </div>
-                                <input type="range" min="1" max="5" step="0.5" id="slider-impact" oninput="updateSliders()" class="w-full accent-jsBlueSky">
+                                <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1">Área Requirente</label>
+                                <select id="proj-area" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none font-bold">
+                                    <option value="People">People 👥</option>
+                                    <option value="Legal">Legal ⚖️</option>
+                                    <option value="Operaciones">Operaciones ⚙️</option>
+                                </select>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-bold mb-1">
-                                    <span class="text-gray-600">Disponibilidad de Data BI (25%)</span>
-                                    <span class="text-jsBlueSky font-extrabold" id="lbl-data">3</span>
-                                </div>
-                                <input type="range" min="1" max="5" step="0.5" id="slider-data" oninput="updateSliders()" class="w-full accent-jsBlueSky">
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-bold mb-1">
-                                    <span class="text-gray-600">Alineación Estratégica (20%)</span>
-                                    <span class="text-jsBlueSky font-extrabold" id="lbl-align">3</span>
-                                </div>
-                                <input type="range" min="1" max="5" step="0.5" id="slider-align" oninput="updateSliders()" class="w-full accent-jsBlueSky">
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-bold mb-1">
-                                    <span class="text-gray-600">Esfuerzo de Desarrollo (20%)</span>
-                                    <span class="text-jsBlueSky font-extrabold text-jsRed" id="lbl-effort">3</span>
-                                </div>
-                                <input type="range" min="1" max="5" step="0.5" id="slider-effort" oninput="updateSliders()" class="w-full accent-jsRed">
+                                <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1">Responsable Ejecución</label>
+                                <select id="proj-effort" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none font-bold">
+                                    <option value="Transformación Digital">Transformación Digital</option>
+                                    <option value="Equipo de BI & Data">Equipo de BI & Data</option>
+                                    <option value="IT / Sistemas">IT / Sistemas</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="bg-jsGrayBg p-3 rounded-lg flex justify-between items-center border border-gray-100">
-                            <span class="text-xs font-black text-gray-500 uppercase">Score Ponderado:</span>
-                            <span class="text-lg font-black text-jsBlueSky" id="live-priority-score">3.0</span>
+
+                        <div class="space-y-2 pt-2">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">1. Impacto de Negocio (35%)</label>
+                                <span id="lbl-impact" class="text-xs font-black text-[#00A9E0] bg-sky-50 px-2 py-0.5 rounded">3</span>
+                            </div>
+                            <input id="proj-impact" type="range" min="1" max="5" value="3" oninput="updateSliderLabel('impact', this.value)" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-[#00A9E0]">
                         </div>
-                        <div class="flex space-x-2">
-                            <button type="submit" id="btn-save-project" class="w-full bg-jsBlueSky hover:bg-jsBlueSky/95 text-white font-black text-xs py-3 rounded-lg uppercase tracking-wider transition-all">
-                                Guardar Registro
-                            </button>
-                            <button type="button" onclick="resetForm()" class="px-4 bg-gray-100 hover:bg-gray-200 text-gray-500 rounded-lg text-sm"><i class="fa-solid fa-rotate-left"></i></button>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">2. Disponibilidad de Data (25%)</label>
+                                <span id="lbl-data" class="text-xs font-black text-[#1C355E] bg-slate-100 px-2 py-0.5 rounded">3</span>
+                            </div>
+                            <input id="proj-data" type="range" min="1" max="5" value="3" oninput="updateSliderLabel('data', this.value)" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-[#1C355E]">
                         </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">3. Alineación Estratégica (20%)</label>
+                                <span id="lbl-alignment" class="text-xs font-black text-[#00A9E0] bg-sky-50 px-2 py-0.5 rounded">3</span>
+                            </div>
+                            <input id="proj-alignment" type="range" min="1" max="5" value="3" oninput="updateSliderLabel('alignment', this.value)" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-[#00A9E0]">
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-xs font-black text-slate-700 uppercase tracking-wider">4. Esfuerzo de TI / Complejidad (20%)</label>
+                                <span id="lbl-effort-val" class="text-xs font-black text-red-600 bg-red-50 px-2 py-0.5 rounded">3</span>
+                            </div>
+                            <input id="proj-effort-val" type="range" min="1" max="5" value="3" oninput="updateSliderLabel('effort-val', this.value)" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-red-600">
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-[#00A9E0] text-white font-black rounded-xl text-xs uppercase tracking-wider shadow-md">Guardar Iniciativa</button>
                     </form>
+                    <div class="pt-4 border-t border-slate-100 flex justify-between items-center text-xs">
+                        <button onclick="loadMockProjects()" class="text-xs text-[#1C355E] hover:text-[#00A9E0] font-black uppercase">Cargar Mocks</button>
+                        <button onclick="clearProjects()" class="text-xs text-slate-400 hover:text-slate-600 font-bold uppercase">Limpiar Todo</button>
+                    </div>
                 </div>
 
-                <div class="lg:col-span-8 space-y-8">
-                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-                        <h3 class="text-lg font-black text-jsBlueDeep mb-4">Estrategia de Transformación: Impacto vs Factibilidad</h3>
-                        <div class="relative aspect-video w-full border-2 border-dashed border-gray-200 rounded-xl bg-gray-50 flex overflow-hidden">
-                            <div class="grid grid-cols-2 grid-rows-2 w-full h-full text-center relative z-0">
-                                <div class="border-r border-b border-gray-100 flex flex-col items-center justify-center p-4 bg-[#F2F8FC]/40"><span class="text-xs font-black text-jsBlueSky uppercase opacity-50">PROYECTOS INTERESANTES</span></div>
-                                <div class="border-b border-gray-100 flex flex-col items-center justify-center p-4 bg-[#ECFAF2]/40"><span class="text-xs font-black text-emerald-600 uppercase opacity-65">QUICK WINS (Foco Primario)</span></div>
-                                <div class="border-r border-gray-100 flex flex-col items-center justify-center p-4 bg-gray-100/30"><span class="text-xs font-black text-gray-400 uppercase">BAJA PRIORIDAD</span></div>
-                                <div class="flex flex-col items-center justify-center p-4 bg-[#FFF9ED]/30"><span class="text-xs font-black text-amber-600 uppercase opacity-65">EVALUACIÓN CONTROLADA</span></div>
-                            </div>
-                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-jsBlueDeep z-10"></div>
-                            <div class="absolute inset-y-0 left-0 w-0.5 bg-jsBlueDeep z-10"></div>
-                            <div id="matrix-plot" class="absolute inset-0 z-20 pointer-events-none"></div>
-                        </div>
+                <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div class="relative w-full aspect-square md:aspect-[4/3] bg-slate-50 border-2 border-slate-200 rounded-2xl overflow-hidden mb-6">
+                        <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-300 border-dashed z-0"></div>
+                        <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-300 border-dashed z-0"></div>
+                        <div id="plotting-canvas" class="absolute inset-0 z-20 p-8"></div>
                     </div>
-
-                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 overflow-x-auto">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-black text-jsBlueDeep">Pipeline de Transformación Digital</h3>
-                            <span class="bg-jsBlueSky/10 text-jsBlueSky text-xs font-black px-3 py-1 rounded-full" id="lbl-project-count">0 Proyectos</span>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-black text-[#1C355E] text-xs uppercase tracking-wider">Pipeline de Proyectos en Tiempo Real:</h4>
+                            <span id="lbl-project-count" class="bg-[#00A9E0]/10 text-[#00A9E0] text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-wider">0 Proyectos</span>
                         </div>
-                        <table class="w-full text-left text-sm whitespace-nowrap">
-                            <thead>
-                                <tr class="text-xs font-bold text-gray-400 uppercase border-b border-gray-100">
-                                    <th class="py-3">Iniciativa</th>
-                                    <th class="py-3">Gerencia</th>
-                                    <th class="py-3 text-center">Score Ponderado</th>
-                                    <th class="py-3 text-right">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="projects-list" class="divide-y divide-gray-50"></tbody>
-                        </table>
+                        <div id="project-list" class="max-h-40 overflow-y-auto space-y-2 pr-1 text-xs"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="pane-intake" class="tab-pane hidden">
+        <section id="tab-raci" class="hidden space-y-8">
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+                <div class="overflow-x-auto rounded-xl">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-[#1C355E] text-white text-[10px] uppercase font-black">
+                                <th class="p-4">Etapa del Framework</th>
+                                <th class="p-4 text-center">Área Proponente</th>
+                                <th class="p-4 text-center">Tú (PM Transforma TD)</th>
+                                <th class="p-4 text-center">Equipo de BI & Data</th>
+                                <th class="p-4 text-center">Desarrolladores TI</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-xs">
+                            <tr>
+                                <td class="p-4 font-black">1. Planificación (Intake)</td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-sky-100 text-sky-800 rounded font-bold">A</span></td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-indigo-100 text-[#1C355E] rounded font-bold">R</span></td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-slate-100 rounded text-slate-400">I</span></td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-slate-100 rounded text-slate-400">I</span></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-black">2. Discovery Técnico & BI</td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded font-bold">C</span></td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-sky-100 text-sky-800 rounded font-bold">A</span></td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-indigo-100 text-[#1C355E] rounded font-bold">R</span></td>
+                                <td class="p-4 text-center"><span class="px-2 py-0.5 bg-indigo-100 text-[#1C355E] rounded font-bold">R</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-prd" class="hidden space-y-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-md border border-gray-100 h-fit">
-                    <h3 class="text-xl font-black text-jsBlueDeep mb-2">Formulario de Intake Digital</h3>
-                    <p class="text-xs text-gray-500 mb-6">Levantamiento estructurado para los gerentes de People y Legal.</p>
-                    <form id="intake-form" class="space-y-4" onsubmit="submitIntake(event)">
-                        <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">¿Qué área presenta el problema?</label>
-                            <select id="intake-area" class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200">
-                                <option value="People">People (Recursos Humanos)</option>
-                                <option value="Legal">Legal & Compliance</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">Nombre del Desafío</label>
-                            <input type="text" id="intake-title" required placeholder="Ej: Control de Contratos de Terceros" class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">Problema en Bruto (Dolor actual)</label>
-                            <textarea id="intake-problem" required rows="3" placeholder="Describe qué pasa hoy..." class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">Eje del área de TD relacionado</label>
-                            <select id="intake-pilar" class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200">
-                                <option value="Productividad">Productividad (Hacer más con lo mismo)</option>
-                                <option value="Costos">Costos (Gastar menos)</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="w-full bg-jsBlueSky hover:bg-jsBlueSky/95 text-white font-black text-xs py-4 rounded-lg uppercase tracking-wider transition-all">
-                            Enviar al Pipeline de TD
-                        </button>
-                    </form>
-                </div>
-                <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-black text-jsBlueDeep">Solicitudes de Entrada</h3>
-                        <span class="bg-jsBlueSky/10 text-jsBlueSky text-xs font-black px-3 py-1 rounded-full" id="lbl-intake-count">0 Recibidos</span>
+                <div class="lg:col-span-4 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4 self-start">
+                    <div>
+                        <h2 class="text-xl font-black text-[#1C355E]">Diseñador de PRD</h2>
                     </div>
-                    <div id="intakes-container" class="space-y-4 max-h-[500px] overflow-y-auto custom-scrollbar pr-2"></div>
+                    <div>
+                        <label class="block text-xs font-black text-slate-700 uppercase mb-1">Iniciativa Seleccionada</label>
+                        <select id="prd-project-selector" onchange="loadPrdFromProject()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl font-bold"></select>
+                    </div>
+                    <div class="pt-2 space-y-3">
+                        <input id="prd-data-tables" type="text" placeholder="Tablas Origen" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl">
+                        <input id="prd-kpis" type="text" placeholder="KPIs Clave" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl">
+                        <select id="prd-refresh" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl font-bold">
+                            <option value="Diaria (D+1)">Diaria (D+1)</option>
+                            <option value="Casi en Tiempo Real (Near Real-time)">Near Real-time</option>
+                        </select>
+                    </div>
+                    <button onclick="regeneratePRD()" class="w-full py-2 bg-[#C8102E] text-white font-black rounded-xl text-xs uppercase">Actualizar Documento 🔄</button>
+                </div>
+
+                <div class="lg:col-span-8 space-y-4">
+                    <div class="flex justify-between items-center bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                        <span class="text-xs font-black text-slate-500 uppercase">Ficha Técnica Confluence</span>
+                        <button onclick="copyPrdToClipboard()" class="px-4 py-2 bg-[#1C355E] text-white font-black rounded-xl text-xs uppercase tracking-wider">Copiar PRD Markdown</button>
+                    </div>
+                    <div id="prd-document-view" class="bg-white rounded-3xl border border-slate-200 p-8 shadow-md relative overflow-hidden font-mono text-xs max-h-[600px] overflow-y-auto"></div>
                 </div>
             </div>
         </section>
-
-        <section id="pane-discovery" class="tab-pane hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-4 bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-                    <h3 class="text-lg font-black text-jsBlueDeep mb-4">Seleccionar Proyecto</h3>
-                    <div class="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar pr-2" id="discovery-project-list"></div>
-                </div>
-                <div class="lg:col-span-8 bg-white rounded-2xl p-6 shadow-md border border-gray-100 space-y-6">
-                    <div class="flex justify-between items-center border-b border-gray-100 pb-4">
-                        <h3 class="text-2xl font-black text-jsBlueDeep" id="prd-project-title">Ningún Proyecto Seleccionado</h3>
-                        <div class="flex space-x-2">
-                            <button onclick="savePRDToCloud()" class="bg-jsBlueSky hover:bg-jsBlueSky/95 text-white text-xs font-black px-4 py-2.5 rounded-lg uppercase tracking-wider transition-all"><i class="fa-solid fa-cloud-arrow-up mr-1.5"></i>Guardar PRD</button>
-                            <button onclick="copyPRDToClipboard()" class="bg-jsBlueDeep hover:bg-jsBlueDeep/95 text-white text-xs font-black px-4 py-2.5 rounded-lg uppercase tracking-wider transition-all"><i class="fa-solid fa-copy mr-1.5"></i>Copiar Confluence</button>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">Mapeo del Modelo de Datos (BI)</label>
-                            <textarea id="prd-data-model" rows="3" placeholder="Ej: Tablas en Data Lake, KPIs a medir..." class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black uppercase text-gray-500 mb-1">Reglas de Negocio / Alcance Funcional</label>
-                            <textarea id="prd-business-rules" rows="3" placeholder="Ej: Automatizaciones de alertas, accesos..." class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-gray-200"></textarea>
-                        </div>
-                    </div>
-                    <div class="bg-jsGrayBg p-5 rounded-xl border border-gray-100">
-                        <h4 class="text-sm font-black text-jsBlueDeep flex items-center mb-4"><i class="fa-brands fa-jira text-lg text-[#0052CC] mr-1.5"></i>Tickets Autogenerados para Jira</h4>
-                        <div class="space-y-3" id="jira-tickets-container"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pane-raci" class="tab-pane hidden">
-            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 overflow-x-auto">
-                <table class="w-full text-left border-collapse whitespace-nowrap">
-                    <thead>
-                        <tr class="bg-jsBlueDeep text-white text-xs font-black uppercase border-b border-jsBlueSky">
-                            <th class="p-4 rounded-tl-xl">Fase del Framework</th>
-                            <th class="p-4">Gerencia Solicitante (People/Legal)</th>
-                            <th class="p-4 text-jsBlueSky font-extrabold">PM de Transformación Digital</th>
-                            <th class="p-4">Equipo de BI & Data</th>
-                            <th class="p-4 rounded-tr-xl">Sistemas / IT Técnico</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100 text-sm">
-                        <tr>
-                            <td class="p-4 font-black">1. Planificación (Intake 360°)</td>
-                            <td class="p-4"><span class="bg-emerald-50 text-emerald-600 text-[10px] font-black px-2 py-0.5 rounded uppercase">A / R</span></td>
-                            <td class="p-4 font-bold text-jsBlueSky"><span class="bg-jsBlueSky/10 text-jsBlueSky text-[10px] font-black px-2 py-0.5 rounded uppercase">C</span></td>
-                            <td class="p-4"><span class="bg-gray-100 text-gray-400 text-[10px] font-black px-2 py-0.5 rounded uppercase">I</span></td>
-                            <td class="p-4"><span class="bg-gray-100 text-gray-400 text-[10px] font-black px-2 py-0.5 rounded uppercase">I</span></td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-black">2. Product Discovery & Data</td>
-                            <td class="p-4"><span class="bg-jsBlueSky/10 text-jsBlueSky text-[10px] font-black px-2 py-0.5 rounded uppercase">C</span></td>
-                            <td class="p-4 font-bold text-jsBlueSky"><span class="bg-emerald-50 text-emerald-600 text-[10px] font-black px-2 py-0.5 rounded uppercase">A</span></td>
-                            <td class="p-4"><span class="bg-emerald-50 text-emerald-600 text-[10px] font-black px-2 py-0.5 rounded uppercase">R</span></td>
-                            <td class="p-4"><span class="bg-gray-100 text-gray-400 text-[10px] font-black px-2 py-0.5 rounded uppercase">I</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
     </main>
 
+    <footer class="bg-[#1C355E] text-slate-300 text-xs py-8 border-t-4 border-[#00A9E0] mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
+            <p>© 2026 JetSMART Airlines. Área de Transformación Digital. <strong class="text-[#00A9E0]">¡Transforma SMART!</strong></p>
+        </div>
+    </footer>
+
     <div id="db-config-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border-t-8 border-jsBlueSky">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border-t-8 border-[#00A9E0]">
             <button onclick="closeDbConfigModal()" class="absolute top-4 right-4 text-gray-400 text-lg"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-xl font-black mb-4">Conectar Cloud Firestore Database</h3>
-            <textarea id="firebase-config-input" rows="8" placeholder='{ "apiKey": "AIzaSy...", ... }' class="w-full text-xs font-mono p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none"></textarea>
+            <h3 class="text-xl font-black mb-2 text-[#1C355E]">Conectar Cloud Firestore Database</h3>
+            <p class="text-xs text-slate-500 mb-4">Pega las claves del SDK Web de Firebase. El limpiador removerá variables extras o comillas curvas automáticamente.</p>
+            <textarea id="firebase-config-input" rows="8" placeholder='{ "apiKey": "AIzaSy...", ... }' class="w-full text-xs font-mono p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none custom-scrollbar"></textarea>
             <div class="flex space-x-2 mt-4">
-                <button onclick="saveFirebaseConfig()" class="w-full bg-jsBlueSky text-white font-black text-xs py-3 rounded-lg uppercase">Activar Cloud DB</button>
-                <button onclick="clearFirebaseConfig()" class="px-4 bg-jsRed/10 text-jsRed font-black text-xs rounded-lg uppercase">Desconectar</button>
+                <button onclick="saveFirebaseConfig()" class="w-full bg-[#00A9E0] text-white font-black text-xs py-3 rounded-lg uppercase">Activar Sincronización Cloud</button>
+                <button onclick="clearFirebaseConfig()" class="px-4 bg-red-50 text-red-600 font-black text-xs rounded-lg uppercase">Desconectar</button>
             </div>
         </div>
     </div>
 
-    <div id="custom-confirm-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative border-t-8 border-jsRed">
-            <h3 class="text-lg font-black mb-2 text-jsBlueDeep">¿Confirmar Eliminación?</h3>
-            <p class="text-xs text-gray-500 mb-6">Esta acción borrará el registro de Cloud Firestore permanentemente de tu roadmap.</p>
-            <div class="flex justify-end space-x-2">
-                <button onclick="closeCustomConfirmModal()" class="px-4 py-2 bg-gray-100 text-gray-500 font-bold text-xs rounded-lg uppercase">Cancelar</button>
-                <button id="btn-confirm-delete-action" class="px-4 py-2 bg-jsRed text-white font-black text-xs rounded-lg uppercase">Eliminar Permanentemente</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="toast" class="fixed bottom-4 right-4 bg-jsBlueDeep text-white text-xs font-black px-4 py-3 rounded-lg shadow-lg z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-2">
-        <i class="fa-solid fa-circle-check text-jsBlueSky"></i><span id="toast-message">Notificación</span>
-    </div>
-
+    <!-- SCRIPT CENTRAL MODULAR (CON SOPORTE LOCAL Y FIREBASE 10.12.0) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, collection, onSnapshot, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, collection, onSnapshot, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         let isFirebaseConnected = false;
         let db = null;
         let auth = null;
         const appId = 'jetsmart-tx-digital';
 
+        let checkboxState = {};
         let projects = [];
-        let intakes = [];
-        let discoveries = [];
-        let selectedPrdProjectId = null;
-        let activeStep = 1;
-        let pendingDeleteId = null;
-        let pendingDeleteType = 'project';
 
-        const stepsData = {
-            1: { title: "Planificación & Intake Digital 360°", owner: "Gerencias Usuarias", desc: "Se levanta el dolor operativo respondiendo al formulario de intake oficial, mapeando impacto y roles.", actions: ["Formulario Único", "Alineación 360°", "Filtro inicial"], deliverable: "Ficha de Intake Aprobada", deliverableDesc: "Habilita la fase de Discovery.", checklist: ["Problema detallado sin solución prefabricada", "Volumen de usuarios mapeado"], duration: "FLEXIBLE" },
-            2: { title: "Discovery de Datos & BI", owner: "Transformación Digital + BI & Data", desc: "Mapeamos proactivamente dónde vive la data en el Data Lake corporativo para asegurar la viabilidad técnica.", actions: ["Mapeo en Data Lake con BI", "Definición de Historias en Jira"], deliverable: "Documento de Discovery (PRD)", deliverableDesc: "Detalla linaje de tablas y KPIs.", checklist: ["BI validó existencia de tablas", "Alcance funcional aprobado"], duration: "HASTA 2 SEMANAS" }
+        const phasesData = {
+            1: { phase: "Fase 1", owner: "Área Proponente (People/Legal/Ops)", title: "Planificación & Intake Digital 360°", desc: "Se levanta el dolor operativo respondiendo al formulario de intake oficial de la gerencia, mapeando el impacto esperado y los roles afectados.", bullets: ["<strong>Formulario Único de Levantamiento:</strong> Estandariza la entrada para evitar requisitos incompletos o ambiguos.","<strong>Alineación y Overview 360°:</strong> Sesión con involucrados para analizar dependencias cruzadas con otras gerencias.","<strong>Filtro Inicial de Viabilidad:</strong> El PM de Transformación Digital califica la factibilidad básica de la idea."], deliverableTitle: "Ficha de Intake Aprobada", deliverableDesc: "Ficha inicial validada que habilita el paso a la fase de Discovery.", time: "Flexible", checks: ["El problema del negocio está detallado claramente sin sugerir una solución prefabricada","Se ha identificado el volumen de usuarios y áreas impactadas","Se han propuesto métricas de éxito iniciales"] },
+            2: { phase: "Fase 2", owner: "Transformación Digital + Equipo de BI & Data", title: "Discovery de Solución y Habilitación de BI", desc: "Convertimos la Ficha de Intake en un requerimiento funcional y de arquitectura analítica completo. El **Equipo de BI & Data** analiza el origen y modela tablas de datos.", bullets: ["<strong>Diseño de Flujos AS-IS / TO-BE:</strong> Mapeo detallado de procesos junto a reglas de negocio rígidas.","<strong>Mapeo de Datos con BI:</strong> Identificación y validación de tablas de datos necesarias en el Data Lake corporativo.","<strong>Definición del Documento de Discovery:</strong> Consolidación del alcance, estimación del esfuerzo técnico y creación de Historias en Jira."], deliverableTitle: "Documento de Discovery & Backlog", deliverableDesc: "Especificaciones aprobadas por BI y tickets listos en Jira.", time: "Hasta 2 semanas", checks: ["Flujo de procesos e historias funcionales redactadas","Estructura y viabilidad de datos certificada por el Equipo de BI & Data","Historias de usuario técnicas creadas y estimadas en Jira"] },
+            3: { phase: "Fase 3", owner: "Comité de Directores / Jefatura TD", title: "Aprobación y Priorización de Portafolio", desc: "Los directores revisan quincenalmente el portafolio de proyectos que completaron el Discovery. Se aprueba presupuesto y se prioriza el orden de construcción.", bullets: ["<strong>Presentación de Caso de Negocio:</strong> Defensa formal del proyecto mostrando el ROI estimado.","<strong>Clasificación Estratégica:</strong> Ubicación objetiva en la Matriz de Priorización.","<strong>Asignación formal de Recursos:</strong> Incorporación oficial del proyecto aprobado dentro del Roadmap Trimestral."], deliverableTitle: "Proyecto Aprobado e Incluido en Roadmap", deliverableDesc: "Aprobación oficial de inversión y asignación de sprints de desarrollo.", time: "Cada 2 semanas", checks: ["Presentación de Caso de Negocio y Gantt listos","Aprobación técnica de TI, Seguridad y Arquitectura","Compromiso de adopción del negocio"] },
+            4: { phase: "Fase 4", owner: "Célula Ágil de Transformación Digital", title: "Ejecución Ágil, Control de Sprints y Go-Live", desc: "Desarrollo ágil e iterativo de la automatización del proceso o del tablero de control de BI.", bullets: ["<strong>Sprints de Construcción:</strong> Desarrollo guiado por tickets Jira.","<strong>Gobernanza de Accesos:</strong> Configuración de roles y permisos corporativos.","<strong>Despliegue y Capacitación:</strong> Salida a producción y soporte inicial de estabilización."], deliverableTitle: "Producto o Dashboard en Producción (Go-Live)", deliverableDesc: "Solución en producción consumiendo fuentes certificadas.", time: "Variable", checks: ["Código probado en ambientes de QA","Permisos de seguridad validados","Plan de capacitación ejecutado"] },
+            5: { phase: "Fase 5", owner: "PM de Transformación Digital + Negocio", title: "Gobernanza de Datos, Adopción y Retorno (ROI)", desc: "Monitoreamos la adopción real de la solución tecnológica implementada y realizamos auditorías periódicas al modelo analítico.", bullets: ["<strong>Comité QBR de BI:</strong> Evaluación trimestral para auditar integridad.","<strong>KPIs de Adopción Operativa:</strong> Medición del uso de la herramienta.","<strong>Lecciones Aprendidas:</strong> Oportunidades de mejora para futuros desarrollos."], deliverableTitle: "Informe Trimestral de ROI", deliverableDesc: "Documentación oficial del impacto financiero real del proyecto.", time: "Trimestral", checks: ["Tablas analíticas en producción auditadas por BI","Métricas de adopción de usuarios estables","Cálculo final de ROI documentado"] }
         };
 
         window.switchTab = switchTab;
-        window.selectStep = selectStep;
-        window.updateSliders = updateSliders;
-        window.saveProject = saveProject;
-        window.editProject = editProject;
+        window.selectPhase = selectPhase;
+        window.handleCheckboxChange = handleCheckboxChange;
+        window.updateSliderLabel = updateSliderLabel;
+        window.addProject = addProject;
         window.deleteProject = deleteProject;
-        window.confirmDelete = confirmDelete;
-        window.closeCustomConfirmModal = closeCustomConfirmModal;
-        window.resetForm = resetForm;
-        window.submitIntake = submitIntake;
-        window.convertIntakeToProject = convertIntakeToProject;
-        window.rejectIntake = rejectIntake;
-        window.selectPrdProject = selectPrdProject;
-        window.savePRDToCloud = savePRDToCloud;
-        window.copyPRDToClipboard = copyPRDToClipboard;
+        window.loadMockProjects = loadMockProjects;
+        window.clearProjects = clearProjects;
+        window.loadPrdFromProject = loadPrdFromProject;
+        window.regeneratePRD = regeneratePRD;
+        window.copyPrdToClipboard = copyPrdToClipboard;
         window.openDbConfigModal = openDbConfigModal;
         window.closeDbConfigModal = closeDbConfigModal;
         window.saveFirebaseConfig = saveFirebaseConfig;
         window.clearFirebaseConfig = clearFirebaseConfig;
-        window.toggleChecklistItem = toggleChecklistItem;
 
         window.onload = function() {
             initFirebase();
-            loadInitialData();
+            loadProjectsFromStorage();
+            const savedChecklists = localStorage.getItem('js_checklist_state');
+            if (savedChecklists) checkboxState = JSON.parse(savedChecklists);
             switchTab('pilares');
-            selectStep(1);
-        }
+            selectPhase(1);
+        };
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
-            const activePane = document.getElementById(`pane-${tabId}`);
-            if (activePane) activePane.classList.remove('hidden');
-
-            ['pilares', 'framework', 'matriz', 'intake', 'discovery', 'raci'].forEach(t => {
-                const btn = document.getElementById(`btn-tab-${t}`);
-                if (btn) btn.className = t === tabId ? "tab-transition px-3 py-2 rounded-md text-xs font-bold bg-jsBlueSky text-white" : "tab-transition px-3 py-2 rounded-md text-xs font-bold text-gray-300 hover:text-white hover:bg-jsBlueDeep/50";
+        function switchTab(tabName) {
+            ['pilares', 'infografia', 'flujo', 'priorizador', 'raci', 'prd'].forEach(t => {
+                const el = document.getElementById('tab-' + t);
+                if (el) el.classList.add('hidden');
+                const btn = document.getElementById('btn-' + t);
+                if (btn) btn.className = "tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200";
             });
+            const activePane = document.getElementById('tab-' + tabName);
+            if (activePane) activePane.classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabName);
+            if (activeBtn) activeBtn.className = "tab-btn px-4 py-2 text-xs font-black rounded-lg bg-[#00A9E0] text-white transition-all duration-200";
+            if (tabName === 'prd') populatePrdProjectSelector();
         }
 
         function initFirebase() {
@@ -509,9 +511,13 @@
                         isFirebaseConnected = true;
                         updateSyncStatus(true);
                         setupRealtimeListeners();
-                    }).catch(e => console.error("Error Auth:", e));
+                    }).catch(e => {
+                        console.error("Auth Exception:", e);
+                        updateSyncStatus(false);
+                    });
                 } catch (e) {
-                    console.error("Config JSON Error:", e);
+                    console.error("Parse Setup Error:", e);
+                    updateSyncStatus(false);
                 }
             }
         }
@@ -520,54 +526,311 @@
             const indicator = document.getElementById('sync-indicator');
             const text = document.getElementById('sync-text');
             const btnSync = document.getElementById('btn-sync');
+            const banner = document.getElementById('db-alert-banner');
             
             if (connected) {
                 if (indicator) indicator.className = "w-2 h-2 rounded-full bg-white";
                 if (text) text.innerText = "Cloud Firestore Activo";
                 if (btnSync) btnSync.className = "flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider border transition-all duration-300 bg-emerald-600 border-emerald-600 text-white shadow-md";
-                document.getElementById('db-alert-banner').classList.add('hidden');
+                if (banner) banner.classList.add('hidden');
             } else {
                 if (indicator) indicator.className = "w-2 h-2 rounded-full bg-white animate-ping";
                 if (text) text.innerText = "CONECTAR BASE DATOS";
-                if (btnSync) btnSync.className = "flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider border transition-all duration-300 bg-jsRed border-jsRed text-white shadow-md";
+                if (btnSync) btnSync.className = "flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider border transition-all duration-300 bg-[#C8102E] border-[#C8102E] text-white shadow-md";
+                if (banner) banner.classList.remove('hidden');
             }
         }
 
         function setupRealtimeListeners() {
             if (!db) return;
             const pRef = collection(db, 'artifacts', appId, 'public', 'data', 'projects');
-            const iRef = collection(db, 'artifacts', appId, 'public', 'data', 'intakes');
-            const dRef = collection(db, 'artifacts', appId, 'public', 'data', 'discoveries');
 
             onSnapshot(pRef, (snap) => {
-                projects = []; snap.forEach(doc => projects.push({ id: doc.id, ...doc.data() }));
-                renderProjects(); renderDiscoveryProjectSelection();
-            });
-            onSnapshot(iRef, (snap) => {
-                intakes = []; snap.forEach(doc => intakes.push({ id: doc.id, ...doc.data() }));
-                renderIntakes();
-            });
-            onSnapshot(dRef, (snap) => {
-                discoveries = []; snap.forEach(doc => discoveries.push({ id: doc.id, ...doc.data() }));
-                if(selectedPrdProjectId) selectPrdProject(selectedPrdProjectId);
-            });
+                projects = [];
+                snap.forEach(doc => projects.push({ id: doc.id, ...doc.data() }));
+                drawMatrix();
+            }, e => console.error(e));
         }
 
-        function loadInitialData() {
-            if (!localStorage.getItem('jetsmart_firebase_config')) {
-                projects = JSON.parse(localStorage.getItem('js_projects')) || [];
-                intakes = JSON.parse(localStorage.getItem('js_intakes')) || [];
-                discoveries = JSON.parse(localStorage.getItem('js_discoveries')) || [];
-                renderAll();
+        function selectPhase(phaseId) {
+            document.querySelectorAll('.phase-card').forEach(card => {
+                card.className = "phase-card border border-slate-200 bg-white p-4 rounded-2xl text-left hover:border-slate-300 transition-all duration-300 hover:scale-[1.02] relative overflow-hidden";
+            });
+            const selectedCard = document.getElementById('phase-card-' + phaseId);
+            if (selectedCard) selectedCard.className = "phase-card border-2 border-[#00A9E0] bg-white p-4 rounded-2xl text-left shadow-md relative overflow-hidden";
+
+            const data = phasesData[phaseId] || phasesData[1];
+            let bulletsHtml = data.bullets.map(b => `<li class="flex items-start space-x-3"><div class="mt-1 bg-sky-50 text-[#00A9E0] p-1 rounded-full shrink-0"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs text-slate-600 font-medium">${b}</span></li>`).join('');
+            let checksHtml = data.checks.map((c, index) => {
+                const key = `phase_${phaseId}_check_${index}`;
+                const isChecked = !!checkboxState[key];
+                return `<div class="flex items-center space-x-3 bg-white p-3 rounded-xl border ${isChecked ? 'border-[#00A9E0] bg-sky-50/40' : 'border-slate-200'} cursor-pointer" onclick="window.handleCheckboxChange(${phaseId}, ${index}, !${isChecked})"><input type="checkbox" ${isChecked ? 'checked' : ''} class="w-4 h-4 text-[#00A9E0] rounded border-slate-300 focus:ring-[#00A9E0]"><span class="text-xs text-slate-600 font-bold ${isChecked ? 'line-through opacity-70' : ''}">${c}</span></div>`;
+            }).join('');
+
+            const canvas = document.getElementById('phase-details-canvas');
+            if (canvas) {
+                canvas.innerHTML = `
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7 space-y-5">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 bg-[#1C355E] text-white text-[10px] font-black rounded-full uppercase tracking-wider">${data.phase}</span>
+                                <span class="text-slate-300 font-black">•</span>
+                                <span class="text-slate-500 text-xs font-bold">Dueño Primario: <strong class="text-[#1C355E]">${data.owner}</strong></span>
+                            </div>
+                            <h2 class="text-2xl font-black text-[#1C355E]">${data.title}</h2>
+                            <p class="text-slate-600 text-xs md:text-sm font-semibold">${data.desc}</p>
+                            <ul class="space-y-3">${bulletsHtml}</ul>
+                        </div>
+                        <div class="lg:col-span-5 bg-slate-50 rounded-2xl p-6 border space-y-6">
+                            <div>
+                                <span class="text-[10px] font-black tracking-widest text-slate-400 block mb-2 uppercase">Entregable Requerido</span>
+                                <div class="bg-white p-4 rounded-xl border font-bold text-xs text-[#1C355E]">${data.deliverableTitle}</div>
+                            </div>
+                            <div class="space-y-2">${checksHtml}</div>
+                        </div>
+                    </div>
+                `;
             }
         }
 
-        function renderAll() { renderProjects(); renderIntakes(); renderDiscoveryProjectSelection(); }
+        function handleCheckboxChange(phaseId, checkIndex, isChecked) {
+            checkboxState[`phase_${phaseId}_check_${checkIndex}`] = isChecked;
+            localStorage.setItem('js_checklist_state', JSON.stringify(checkboxState));
+            selectPhase(phaseId);
+        }
 
-        function selectStep(stepNum) {
-            activeStep = stepNum;
-            const data = stepsData[stepNum] || stepsData[1];
-            const contentCard = document.getElementById('step-card-content');
-            if (!contentCard) return;
+        function updateSliderLabel(s, v) {
+            const el = document.getElementById('lbl-' + s);
+            if (el) el.innerText = v;
+        }
 
-            let actionsHtml = data.actions.map(act => `<li class="flex items-start space-x-2 text-xs text-gray-
+        function drawMatrix() {
+            const canvas = document.getElementById('plotting-canvas');
+            const list = document.getElementById('project-list');
+            const countLabel = document.getElementById('lbl-project-count');
+            
+            if (!canvas || !list) return;
+            
+            canvas.innerHTML = ""; 
+            list.innerHTML = "";
+
+            if (countLabel) {
+                countLabel.innerText = `${projects.length} Proyectos`;
+            }
+
+            if (projects.length === 0) {
+                list.innerHTML = `<p class="text-slate-400 text-center py-6 font-bold">Sin proyectos en el portafolio. Agrega uno o carga ejemplos corporativos.</p>`;
+                return;
+            }
+
+            projects.forEach((proj, idx) => {
+                const invertedEffort = 6 - proj.effort;
+                const score = (proj.impact * 0.35) + (proj.data * 0.25) + (proj.alignment * 0.20) + (invertedEffort * 0.20);
+                proj.score = score.toFixed(2);
+                
+                const valY = ((proj.impact * 0.35) + (proj.alignment * 0.20)) / 0.55;
+                const valX = ((proj.data * 0.25) + (invertedEffort * 0.20)) / 0.45;
+
+                const xPct = 8 + ((valX - 1) / 4) * 84;
+                const yPct = 8 + ((5 - valY) / 4) * 84;
+
+                let dotColorClass = "bg-slate-400 shadow-slate-400/30";
+                let priorityLabel = "Prioridad Baja";
+
+                if (valY >= 3 && valX >= 3) {
+                    dotColorClass = "bg-[#00A9E0] shadow-[#00A9E0]/40";
+                    priorityLabel = "Prioridad 1 (Quick Win)";
+                } else if (valY >= 3 && valX < 3) {
+                    dotColorClass = "bg-[#1C355E] shadow-[#1C355E]/40";
+                    priorityLabel = "Fase 2 (Discovery BI Obligatorio)";
+                } else if (valY < 3 && valX >= 3) {
+                    dotColorClass = "bg-slate-500 shadow-slate-500/30";
+                    priorityLabel = "Habilitadores / Infraestructura";
+                }
+
+                canvas.innerHTML += `<div class="absolute w-6 h-6 ${dotColorClass} text-white rounded-full flex items-center justify-center text-[10px] font-black cursor-pointer shadow-lg hover:scale-125 transition-transform duration-200 group" style="left: ${xPct}%; top: ${yPct}%; transform: translate(-50%, -50%);">${idx + 1}<div class="absolute bottom-7 left-1/2 transform -translate-x-1/2 bg-[#1C355E] text-white text-[9px] font-black rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl z-50 uppercase tracking-wider">${proj.title} (Score: ${proj.score})</div></div>`;
+                list.innerHTML += `<div class="bg-slate-50 p-3 rounded-xl border flex justify-between items-center font-bold">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black bg-[#1C355E] text-white">${idx + 1}</span>
+                        <div>
+                            <h5 class="font-black text-[#1C355E] text-xs leading-none mb-1">${proj.title}</h5>
+                            <p class="text-[9px] text-slate-400 uppercase tracking-wider">${proj.area} • Score: <strong class="text-[#00A9E0]">${proj.score}</strong></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-[9px] font-black px-2 py-0.5 rounded uppercase ${valY >= 3 && valX >= 3 ? 'bg-sky-50 text-sky-800 border border-[#00A9E0]' : valY >= 3 ? 'bg-indigo-50 text-indigo-800 border border-[#1C355E]' : 'bg-slate-100 text-slate-700'}">${priorityLabel}</span>
+                        <button onclick="window.deleteProject(${idx})" class="text-red-500 hover:text-red-700 p-1 text-[10px]">✕</button>
+                    </div>
+                </div>`;
+            });
+        }
+
+        async function addProject(e) {
+            e.preventDefault();
+            const p = {
+                title: document.getElementById('proj-title').value.trim(),
+                area: document.getElementById('proj-area').value,
+                effort: parseInt(document.getElementById('proj-effort-val').value),
+                impact: parseInt(document.getElementById('proj-impact').value),
+                data: parseInt(document.getElementById('proj-data').value),
+                alignment: parseInt(document.getElementById('proj-alignment').value),
+                createdAt: new Date().toISOString()
+            };
+
+            if (isFirebaseConnected && db) {
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'projects'), p);
+                    showToast(`Iniciativa guardada en la Nube`);
+                } catch (e) {
+                    showToast("Error guardando en Firestore", "error");
+                }
+            } else {
+                projects.push(p);
+                localStorage.setItem('js_matrix_projects', JSON.stringify(projects));
+                drawMatrix();
+                showToast(`Iniciativa guardada localmente`);
+            }
+            document.getElementById('proj-title').value = "";
+            if(document.getElementById('prd-project-selector')) populatePrdProjectSelector();
+        }
+
+        async function deleteProject(idx) {
+            if (isFirebaseConnected && db && projects[idx].id) {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'projects', projects[idx].id));
+                showToast("Iniciativa eliminada de la Nube");
+            } else {
+                projects.splice(idx, 1);
+                localStorage.setItem('js_matrix_projects', JSON.stringify(projects));
+                drawMatrix();
+                showToast("Iniciativa eliminada localmente");
+            }
+            if(document.getElementById('prd-project-selector')) populatePrdProjectSelector();
+        }
+
+        async function loadMockProjects() {
+            const mocks = [
+                { title: "Dashboard Control de Horas Extras (BI)", area: "People", effort: 2, impact: 5, data: 5, alignment: 5 },
+                { title: "Firma Automatizada de Contratos Proveedores", area: "Legal", effort: 4, impact: 4, data: 2, alignment: 4 }
+            ];
+            
+            if (isFirebaseConnected && db) {
+                for(let m of mocks) {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'projects'), m);
+                }
+            } else {
+                projects = mocks;
+                localStorage.setItem('js_matrix_projects', JSON.stringify(projects));
+                drawMatrix();
+            }
+        }
+
+        async function clearProjects() {
+            if (isFirebaseConnected && db) {
+                showToast("Vaciando proyectos de la nube...");
+                for(let p of projects) {
+                    if (p.id) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'projects', p.id));
+                }
+            } else {
+                projects = []; 
+                localStorage.removeItem('js_matrix_projects'); 
+                drawMatrix();
+            }
+        }
+
+        function loadProjectsFromStorage() {
+            if (!localStorage.getItem('jetsmart_firebase_config')) {
+                projects = JSON.parse(localStorage.getItem('js_matrix_projects')) || [];
+                drawMatrix();
+            }
+        }
+
+        function populatePrdProjectSelector() {
+            const selector = document.getElementById('prd-project-selector');
+            if (selector) {
+                selector.innerHTML = projects.length === 0 ? '<option value="">Agrega proyectos en la Matriz primero</option>' : projects.map((p, idx) => `<option value="${idx}">[${p.area}] ${p.title}</option>`).join('');
+                if(projects.length > 0) loadPrdFromProject();
+            }
+        }
+
+        function loadPrdFromProject() {
+            const idx = parseInt(document.getElementById('prd-project-selector').value);
+            if (isNaN(idx) || !projects[idx]) {
+                document.getElementById('prd-document-view').innerHTML = `<p class="text-slate-400 text-center py-12 font-bold uppercase">No hay iniciativas registradas para generar un PRD.</p>`;
+                return;
+            }
+            const p = projects[idx];
+
+            if (p.title.includes("Horas") || p.title.includes("Selección")) {
+                document.getElementById('prd-data-tables').value = "dw_people.dim_colaboradores, dw_people.fact_asistencia_diaria";
+                document.getElementById('prd-kpis').value = "% Desviación de Presupuesto, Monto total de HH.EE.";
+            } else if (p.title.includes("Contratos")) {
+                document.getElementById('prd-data-tables').value = "dw_legal.dim_proveedores, dw_legal.fact_firmas";
+                document.getElementById('prd-kpis').value = "SLA promedio de firma, Alertas de vencimiento";
+            } else {
+                document.getElementById('prd-data-tables').value = "dw_ops.fact_vuelos, dw_ops.dim_equipos";
+                document.getElementById('prd-kpis').value = "Eficiencia Operativa OTP, SLA Rampa";
+            }
+            regeneratePRD();
+        }
+
+        function regeneratePRD() {
+            const idx = parseInt(document.getElementById('prd-project-selector').value);
+            if (isNaN(idx) || !projects[idx]) return;
+            const p = projects[idx];
+
+            const tables = document.getElementById('prd-data-tables').value;
+            const kpis = document.getElementById('prd-kpis').value;
+            const refresh = document.getElementById('prd-refresh').value;
+
+            const prdText = `# PRODUCT REQUIREMENT DOCUMENT (PRD)\n* **Nombre de la Iniciativa:** ${p.title}\n* **Gerencia Proponente:** Gerencia de ${p.area}\n\n## ESPECIFICACIÓN TÉCNICA DE DATOS & BI\n* **Tablas de Origen:** \`${tables}\`\n* **KPIs Clave Requeridos:** ${kpis}\n* **Frecuencia de Actualización:** ${refresh}\n\n## HISTORIAS DE USUARIO SUGERIDAS (JIRA)\n### ÉPICA-01: MODELADO DE DATOS\n* **STORY-01: Mapeo de Fuentes y ETL**\n  - *Como:* Desarrollador de BI\n  - *Quiero:* Conectar y validar las fuentes de origen \`${tables.split(',')[0] || 'origen'}\`\n  - *Para:* Asegurar la ingesta estable de datos.`;
+
+            let htmlPRD = prdText
+                .replace(/\n/g, '<br>')
+                .replace(/# (.*)/g, '<h1 class="text-sm font-black text-[#1C355E] border-b border-slate-300 pb-2 mb-4 mt-6 uppercase tracking-wider">$1</h1>')
+                .replace(/## (.*)/g, '<h2 class="text-xs font-black text-[#00A9E0] mt-5 mb-2 uppercase tracking-wider">$1</h2>')
+                .replace(/\* \*\*(.*?)\*\*:(.*)/g, '<p class="text-[11px] text-slate-700 font-sans"><strong class="text-[#1C355E]">$1:</strong> $2</p>')
+                .replace(/  - \* (.*)/g, '<li class="list-disc ml-6 text-[11px] text-slate-600 font-sans font-semibold">$1</li>')
+                .replace(/`([^`]+)`/g, '<code class="bg-slate-100 text-[#00A9E0] px-1 py-0.5 rounded font-black">$1</code>');
+
+            const view = document.getElementById('prd-document-view');
+            view.innerHTML = `<div class="absolute top-0 right-0 bg-[#1C355E] text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-bl-xl tracking-wider select-none border-b border-l border-[#00A9E0]">Confluence Sheet Model</div><div class="prose max-w-none text-[11px] leading-relaxed mt-2">${htmlPRD}</div>`;
+            view.setAttribute('data-raw', prdText);
+        }
+
+        function copyPrdToClipboard() {
+            const t = document.getElementById('prd-document-view').getAttribute('data-raw');
+            if (t) {
+                const temp = document.createElement("textarea");
+                temp.value = t; document.body.appendChild(temp); temp.select(); document.execCommand('copy'); document.body.removeChild(temp);
+                showToast("¡PRD Copiado en formato Markdown!"); 
+            }
+        }
+
+        function openDbConfigModal() { document.getElementById('db-config-modal').classList.remove('hidden'); }
+        function closeDbConfigModal() { document.getElementById('db-config-modal').classList.add('hidden'); }
+        
+        function saveFirebaseConfig() {
+            let rawConfig = document.getElementById('firebase-config-input').value.trim();
+            if (rawConfig.includes("const") || rawConfig.includes("{")) {
+                const start = rawConfig.indexOf("{"); const end = rawConfig.lastIndexOf("}");
+                if (start !== -1 && end !== -1) rawConfig = rawConfig.substring(start, end + 1);
+            }
+            if (rawConfig.endsWith(";")) rawConfig = rawConfig.slice(0, -1);
+            rawConfig = rawConfig.replace(/[\u201C\u201D]/g, '"');
+
+            try {
+                JSON.parse(rawConfig);
+                localStorage.setItem('jetsmart_firebase_config', rawConfig);
+                closeDbConfigModal();
+                showToast("¡Base de datos vinculada con éxito! Conectando...");
+                setTimeout(() => window.location.reload(), 500);
+            } catch (e) {
+                alert("Error de sintaxis JSON. Asegúrate de incluir solo las llaves { ... } sin caracteres adicionales.");
+            }
+        }
+
+        function clearFirebaseConfig() { localStorage.removeItem('jetsmart_firebase_config'); closeDbConfigModal(); setTimeout(() => window.location.reload(), 500); }
+        function showToast(m, type="success") { const container = document.getElementById('toast-container'); const toast = document.createElement('div'); toast.className = `p-4 mb-4 text-xs font-black rounded-xl border transition-all opacity-100 pointer-events-auto shadow-lg ${type === 'error' ? 'bg-red-50 text-red-600 border-red-200' : 'bg-[#1C355E] text-white border-slate-700'}`; toast.innerText = m; container.appendChild(toast); setTimeout(() => toast.remove(), 3000); }
+    </script>
+</body>
+</html>

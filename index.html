@@ -32,63 +32,34 @@
 
     <div id="toast-container" class="fixed bottom-5 right-5 z-[100] space-y-2 pointer-events-none"></div>
 
-    <header class="bg-[#1C355E] text-white sticky top-0 z-50 shadow-lg border-b-4 border-[#00A9E0]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-white p-2 rounded-lg shadow-md flex items-center justify-center">
-                        <svg class="w-8 h-8 text-[#1C355E]" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5l-3.5-3.5 1.41-1.41L12 13.67l4.09-4.09 1.41 1.41L13 17.5zM12 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="flex items-center space-x-1.5">
-                            <span class="font-black text-xl tracking-tight">Jet<span class="text-[#00A9E0]">SMART</span></span>
-                        </div>
-                        <p class="text-[10px] text-slate-300 tracking-wider uppercase font-bold">Transformación Digital</p>
-                    </div>
+<header class="bg-[#1C355E] text-white sticky top-0 z-50 shadow-lg border-b-4 border-[#00A9E0]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <div class="flex items-center space-x-3 shrink-0">
+                <div class="bg-white p-2 rounded-lg shadow-md">
+                    <svg class="w-8 h-8 text-[#1C355E]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5l-3.5-3.5 1.41-1.41L12 13.67l4.09-4.09 1.41 1.41L13 17.5zM12 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
+                    </svg>
                 </div>
-
-                <nav class="hidden lg:flex space-x-1 bg-[#152949] p-1 rounded-xl">
-                    <button onclick="switchTab('pilares')" id="btn-pilares" class="tab-btn px-4 py-2 text-xs font-black rounded-lg bg-[#00A9E0] text-white transition-all duration-200">
-                        0. PILARES TX
-                    </button>
-                    <button onclick="switchTab('infografia')" id="btn-infografia" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
-                        1. FRAMEWORK TD
-                    </button>
-                    <button onclick="switchTab('flujo')" id="btn-flujo" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
-                        2. DISCOVERY & DATA
-                    </button>
-                    <button onclick="switchTab('priorizador')" id="btn-priorizador" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
-                        3. MATRIZ DE PRIORIDAD
-                    </button>
-                    <button onclick="switchTab('raci')" id="btn-raci" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-slate-300 hover:text-white transition-all duration-200">
-                        4. GOBERNANZA RACI
-                    </button>
-                    <button onclick="switchTab('prd')" id="btn-prd" class="tab-btn px-4 py-2 text-xs font-black rounded-lg text-[#00A9E0] hover:text-white transition-all duration-200">
-                        ✨ 5. GENERADOR PRD
-                    </button>
-                </nav>
-
-                <div class="flex items-center space-x-2 flex-shrink-0">
-                    <button id="btn-sync" onclick="openDbConfigModal()" class="flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider border transition-all duration-300 bg-[#C8102E] border-[#C8102E] text-white hover:bg-[#b00e26] shadow-md">
-                        <span class="w-2 h-2 rounded-full bg-white animate-ping" id="sync-indicator"></span>
-                        <span id="sync-text">CONECTAR BASE DATOS</span>
-                        <i class="fa-solid fa-database ml-1 text-white"></i>
-                    </button>
+                <div>
+                    <span class="font-black text-xl tracking-tight block">Jet<span class="text-[#00A9E0]">SMART</span></span>
+                    <p class="text-[10px] text-slate-300 tracking-wider uppercase font-bold">Transf. Digital</p>
                 </div>
             </div>
-        </div>
 
-        <div class="lg:hidden flex justify-around bg-[#152949] py-2 overflow-x-auto border-t border-[#1C355E]">
-            <button onclick="switchTab('pilares')" class="tab-btn-mob text-[10px] font-black text-[#00A9E0] px-3 shrink-0 uppercase">0. Pilares</button>
-            <button onclick="switchTab('infografia')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">1. Framework</button>
-            <button onclick="switchTab('flujo')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">2. Discovery</button>
-            <button onclick="switchTab('priorizador')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">3. Matriz</button>
-            <button onclick="switchTab('raci')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">4. RACI</button>
-            <button onclick="switchTab('prd')" class="tab-btn-mob text-[10px] font-black text-slate-300 px-3 shrink-0 uppercase">5. PRD</button>
+            <nav class="hidden xl:flex flex-wrap justify-center gap-1 bg-[#152949] p-1 rounded-xl">
+                <button onclick="switchTab('pilares')" id="btn-pilares" class="px-3 py-2 text-[10px] font-black rounded-lg bg-[#00A9E0] text-white transition-all">0. PILARES</button>
+                <button onclick="switchTab('infografia')" id="btn-infografia" class="px-3 py-2 text-[10px] font-black rounded-lg text-slate-300 hover:text-white transition-all">1. FRAMEWORK</button>
+                </nav>
+
+            <div class="hidden md:flex items-center space-x-2 flex-shrink-0">
+                <button id="btn-sync" onclick="openDbConfigModal()" class="px-3 py-2 rounded-lg text-[10px] font-black uppercase bg-[#C8102E] text-white shadow-md">
+                    CONECTAR BD
+                </button>
+            </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
         
